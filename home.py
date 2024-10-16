@@ -117,44 +117,36 @@ if uploaded_file is not None:
                     st.error(e)
                     st.write(response)
             i = i + 1
-
+            
 if "dados_processo" in st.session_state:
 
     col1, col2 = st.columns([3,2])
 
     with col1:
+        if "numero_processo" in st.session_state.dados_processo:
+            st.markdown("**Número do Processo Judicial:**")
+            st.markdown(st.session_state.dados_processo["numero_processo"])
         if "autor" in st.session_state.dados_processo:
             st.markdown("**Autor:**")
             st.markdown(st.session_state.dados_processo["autor"])
         if "cpf_cnpj" in st.session_state.dados_processo:
             st.markdown("**CPF/CNPJ:**")
             st.markdown(st.session_state.dados_processo["cpf_cnpj"])
+        if "conta_contrato" in st.session_state.dados_processo:
+            st.markdown("**Conta Contrato ou Instalação:**")
+            st.markdown(st.session_state.dados_processo["conta_contrato"])
         if "endereco" in st.session_state.dados_processo:
             st.markdown("**Endereço:**")
             st.markdown(st.session_state.dados_processo["endereco"])
-        if "representante" in st.session_state.dados_processo:
-            st.markdown("**Representante:**")
-            st.markdown(st.session_state.dados_processo["representante"])
-        if "representante" in st.session_state.dados_processo:
-            st.markdown("**Unidade Consumidora:**")
-            st.markdown(st.session_state.dados_processo["uc"])
-        if "cpf" in st.session_state.dados_processo:
-            st.markdown("**CPF:**")
-            st.markdown(st.session_state.dados_processo["cpf"])
-        if "advogado" in st.session_state.dados_processo:
-            st.markdown("**Advogado:**")
-            st.markdown(st.session_state.dados_processo["advogado"])
-        if "fatos" in st.session_state.dados_processo:
-            st.markdown("**Fatos:**")
-            texto_formatado = st.session_state.dados_processo["fatos"].replace("$", r"\$")
-            st.write(texto_formatado)
-        if "protocolos" in st.session_state.dados_processo:
-            st.markdown("**Protocolos mencionados pelo cliente:**")
-            st.markdown(st.session_state.dados_processo["protocolos"])
-        if "pedidos" in st.session_state.dados_processo:
-            st.markdown("**Pedidos:**")
-            texto_formatado = st.session_state.dados_processo["pedidos"].replace("$", r"\$")
-            st.write(texto_formatado)
+        if "classificacao_decisao" in st.session_state.dados_processo:
+            st.markdown("**Classificação da Decisão Judicial:**")
+            st.markdown(st.session_state.dados_processo["classificacao_decisao"])
+        if "acordao" in st.session_state.dados_processo:
+            st.markdown("**Verificação da Existência de Acórdão:**")
+            st.markdown(st.session_state.dados_processo["acordao"])
+        if "decisao" in st.session_state.dados_processo:
+            st.markdown("**Decisão Judicial:**")
+            st.markdown(st.session_state.dados_processo["decisao"])
 
         st.markdown("#### Motivos principais:")
         for key, value in st.session_state.motivo.items():

@@ -45,6 +45,7 @@ def gemini(
 
     return response
 
+
 def str2json(text):
     response = text
     json_pos = re.finditer("```json", response)

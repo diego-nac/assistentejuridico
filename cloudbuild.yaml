@@ -1,10 +1,11 @@
+# cloudbuild.yaml
 steps:
   # Passo 1: Construir a imagem Docker
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
         'build',
-        '-t', 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistentejuridico/assistentejuridico:main',
+        '-t', 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico/gestorobrigacao:v1',
         '.'
       ]
 
@@ -13,23 +14,23 @@ steps:
     args:
       [
         'push',
-        'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistentejuridico/assistentejuridico:main'
+        'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico/gestorobrigacao:v1'
       ]
 
-  # **Passo 3: Implantar no Cloud Run (com entrypoint corrigido)**
+  # Passo 3: Implantar no Cloud Run (com entrypoint corrigido)
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
       [
-        'run', 'deploy', 'assistentejuridico',
-        '--image', 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistentejuridico/assistentejuridico:main',
+        'run', 'deploy', 'gestorobrigacao',
+        '--image', 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico/gestorobrigacao:v1',
         '--region', 'southamerica-east1',
         '--platform', 'managed',
         '--allow-unauthenticated'
       ]
 
 images:
-  - 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistentejuridico/assistentejuridico:main'
+  - 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico/gestorobrigacao:v1'
 
 options:
   substitution_option: 'ALLOW_LOOSE'
@@ -37,4 +38,4 @@ options:
   machineType: 'E2_MEDIUM'
 
 substitutions:
-  _SERVICE_NAME: 'assistentejuridico'
+  _SERVICE_NAME: 'gestorobrigacao'
