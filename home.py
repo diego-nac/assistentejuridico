@@ -14,7 +14,7 @@ import textwrap
 
 # Page configurations
 st.set_page_config(
-    page_title="Equatorial - Assistente Jurídico",
+    page_title="Equatorial - Assistente Jurídico - Obrigação de Fazer",
     page_icon="👤",
     layout="wide"
 )

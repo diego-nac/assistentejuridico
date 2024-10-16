@@ -4,7 +4,7 @@ steps:
     args:
       [
         'build',
-        '-t', 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistentejuridico/assistentejuridico:$COMMIT_SHA',
+        '-t', 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico-obrigacao-de-fazer/assistente-juridico-obrigacao-de-fazer:$COMMIT_SHA',
         '.'
       ]
 
@@ -13,7 +13,7 @@ steps:
     args:
       [
         'push',
-        'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistentejuridico/assistentejuridico:$COMMIT_SHA'
+        'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico-obrigacao-de-fazer/assistente-juridico-obrigacao-de-fazer:$COMMIT_SHA'
       ]
 
   # **Passo 3: Implantar no Cloud Run (com entrypoint corrigido)**
@@ -21,15 +21,15 @@ steps:
     entrypoint: 'gcloud'
     args:
       [
-        'run', 'deploy', 'assistentejuridico',
-        '--image', 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistentejuridico/assistentejuridico:$COMMIT_SHA',
+        'run', 'deploy', 'assistente-juridico-obrigacao-de-fazer',
+        '--image', 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico-obrigacao-de-fazer/assistente-juridico-obrigacao-de-fazer:$COMMIT_SHA',
         '--region', 'southamerica-east1',
         '--platform', 'managed',
         '--allow-unauthenticated'
       ]
 
 images:
-  - 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistentejuridico/assistentejuridico:$COMMIT_SHA'
+  - 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico-obrigacao-de-fazer/assistente-juridico-obrigacao-de-fazer:$COMMIT_SHA'
 
 options:
   substitution_option: 'ALLOW_LOOSE'
@@ -37,4 +37,4 @@ options:
   machineType: 'E2_MEDIUM'
 
 substitutions:
-  _SERVICE_NAME: 'assistentejuridico'
+  _SERVICE_NAME: 'assistente-juridico-obrigacao-de-fazer'
