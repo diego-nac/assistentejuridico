@@ -148,7 +148,9 @@ if "dados_processo" in st.session_state:
             st.markdown("**Fatos:**")
             texto_formatado = st.session_state.dados_processo["fatos"].replace("$", r"\$")
             st.write(texto_formatado)
-
+        if "protocolos" in st.session_state.dados_processo:
+            st.markdown("**Protocolos mencionados pelo cliente:**")
+            st.markdown(st.session_state.dados_processo["protocolos"])
         if "pedidos" in st.session_state.dados_processo:
             st.markdown("**Pedidos:**")
             texto_formatado = st.session_state.dados_processo["pedidos"].replace("$", r"\$")

@@ -10,10 +10,12 @@ PROMPT_DADOS = """Identifique e extraia exatamente as informações abaixo.
 - Advogado da ação (Nome completo)
 - Texto com um resumo dos fatos: especifique os fatos em dois parágrafos
 - Uma lista completa com os pedidos resumidos em bullet points
+- Números de protocolos mencionados pelo cliente
 
 {tonalidade}
 
-Devolva no formato JSON {{"autor":"", "cpf_cnpj":"", "representante":"", "cpf":"", "uc":"", "endereco":"", "advogado":"", "fatos":"", "pedidos":""}}"""
+
+Devolva no formato JSON {{"autor":"", "cpf_cnpj":"", "representante":"", "cpf":"", "uc":"", "endereco":"", "advogado":"", "fatos":"", "pedidos":"", "protocolos":""}}"""
 
 
 PROMPT_MOTIVO = """Classificar o motivo do processo, selecionando todas as categorias aplicáveis da lista abaixo. Devolva no formato JSON com valores booleanos
