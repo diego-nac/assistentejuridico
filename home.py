@@ -20,7 +20,7 @@ st.set_page_config(
 )
 
 header_col1, header_col2 = st.columns([2, 10])
-header_col2.header('Assistente Jurídico')
+header_col2.header('Assistente Jurídico - Obrigação de Fazer')
 header_col1.image("data/logo.png")
 
 def clear_cache():
