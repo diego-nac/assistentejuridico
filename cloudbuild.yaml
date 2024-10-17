@@ -1,32 +1,33 @@
 steps:
+  # Passo único: Construir a imagem Docker, enviar para o Artifact Registry e implantar no Cloud Run
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
         'build',
-        '-t', 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico/analisador-de-liminares:v1',
+        '-t', 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico/reclassificacao-de-processos-ativos:v1',
         '.'
       ]
-
+    
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
         'push',
-        'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico/analisador-de-liminares:v1'
+        'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico/reclassificacao-de-processos-ativos:v1'
       ]
-
+    
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
       [
-        'run', 'deploy', 'analisador-de-liminares',
-        '--image', 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico/analisador-de-liminares:v1',
+        'run', 'deploy', 'reclassificacao-de-processos-ativos',
+        '--image', 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico/reclassificacao-de-processos-ativos:v1',
         '--region', 'southamerica-east1',
         '--platform', 'managed',
         '--allow-unauthenticated'
       ]
 
 images:
-  - 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico/analisador-de-liminares:v1'
+  - 'southamerica-east1-docker.pkg.dev/llm-rag-maplink/assistente-juridico/reclassificacao-de-processos-ativos:v1'
 
 options:
   substitution_option: 'ALLOW_LOOSE'
@@ -34,4 +35,4 @@ options:
   machineType: 'E2_MEDIUM'
 
 substitutions:
-  _SERVICE_NAME: 'analisador-de-liminares'
+  _SERVICE_NAME: 'reclassificacao-de-processos-ativos'

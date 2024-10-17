@@ -12,15 +12,17 @@ from src.gemini import gemini, str2json
 from config.config import *  
 import textwrap
 
-# Page configurations
+# Atualize a configuração da página
 st.set_page_config(
-    page_title="Equatorial - Analisador de Liminares",
+    page_title="Equatorial - Reclassificação de Processos Ativos",
     page_icon="👤",
     layout="wide"
 )
 
+# Atualize o cabeçalho da aplicação
+
 header_col1, header_col2 = st.columns([2, 10])
-header_col2.header('Analisador de Liminares')
+header_col2.header('Reclassificação de Process os Ativos')
 header_col1.image("data/logo.png")
 
 
@@ -40,11 +42,12 @@ page_height = streamlit_js_eval(js_expressions='screen.height', key='height',  w
 vertexai.init(project=project_id, location=location_id)
 
 if "page" not in st.session_state:
-  st.session_state.page = "juridico"
-elif st.session_state.page != "juridico":
+    st.session_state.page = "reclassificacao"
+elif st.session_state.page != "reclassificacao":
     st.session_state.bt_run = False
     clear_cache()
     st.rerun()
+
 if "uploaded_file"not in st.session_state:
     st.session_state.uploaded_file = False
 if "model" not in st.session_state:
@@ -118,48 +121,41 @@ if uploaded_file is not None:
                     st.error(e)
                     st.write(response)
             i = i + 1
-            
 if "dados_processo" in st.session_state:
 
-    col1, col2 = st.columns([3,2])
+    col1, col2 = st.columns([3, 2])
 
     with col1:
-        if "numero_processo" in st.session_state.dados_processo:
+        if "numero_processo_judicial" in st.session_state.dados_processo:
             st.markdown("**Número do Processo Judicial:**")
-            st.markdown(st.session_state.dados_processo["numero_processo"])
+            st.markdown(st.session_state.dados_processo["numero_processo_judicial"])
         if "nome_parte_autora" in st.session_state.dados_processo:
             st.markdown("**Nome da Parte Autora:**")
             st.markdown(st.session_state.dados_processo["nome_parte_autora"])
         if "cpf_cnpj" in st.session_state.dados_processo:
             st.markdown("**CPF ou CNPJ:**")
             st.markdown(st.session_state.dados_processo["cpf_cnpj"])
-        if "conta_contrato" in st.session_state.dados_processo:
+        if "conta_contrato_instalacao" in st.session_state.dados_processo:
             st.markdown("**Conta Contrato ou Instalação:**")
-            st.markdown(st.session_state.dados_processo["conta_contrato"])
+            st.markdown(st.session_state.dados_processo["conta_contrato_instalacao"])
         if "resumo_fatos" in st.session_state.dados_processo:
             st.markdown("**Resumo dos Fatos:**")
-            st.write(st.session_state.dados_processo["resumo_fatos"])
-        if "cliente_home_care" in st.session_state.dados_processo:
-            st.markdown("**Cliente Home Care:**")
-            st.markdown(st.session_state.dados_processo["cliente_home_care"])
-        if "causas_pedido" in st.session_state.dados_processo:
-            st.markdown("**Causas do Pedido:**")
-            st.write(st.session_state.dados_processo["causas_pedido"])
-        if "decisao_liminar" in st.session_state.dados_processo:
-            st.markdown("**Decisão Liminar:**")
-            st.write(st.session_state.dados_processo["decisao_liminar"])
+            texto_formatado = st.session_state.dados_processo["resumo_fatos"].replace("$", r"\$")
+            st.write(texto_formatado)
+        if "data_fato_gerador" in st.session_state.dados_processo:
+            st.markdown("**Data do Fato Gerador:**")
+            st.markdown(st.session_state.dados_processo["data_fato_gerador"])
+        if "assunto_principal_reclamacao" in st.session_state.dados_processo:
+            st.markdown("**Assunto Principal da Reclamação:**")
+            st.markdown(st.session_state.dados_processo["assunto_principal_reclamacao"])
 
-
-        st.markdown("#### Motivos principais:")
-        for key, value in st.session_state.motivo.items():
-            if value:
-                st.markdown("- "+key)
         st.write("")
         st.write("Obs: É possível alterar a forma que os resultados são gerados.")
         st.write("Obs: Os motivos principais devem ser mapeados para aparecerem adequadamente.")
-    
+
     with col2:
         pdf_viewer(st.session_state.bytes_data, height=int(page_height))
+
 
 else:
     st.markdown("### Suba um arquivo.")
