@@ -1,39 +1,32 @@
 import vertexai.preview.generative_models as generative_models
 
 PROMPT_DADOS = """Identifique e extraia exatamente as informações abaixo.
-- Número do Processo Judicial
-- autor da ação (Nome completo da pessoa ou empresa)
-- CPF ou CNPJ do autor da ação
-- Conta Contrato ou Instalação
-- Unidade consumidora (UC), se disponível
-- Endereço completo da unidade consumidora
-- Advogado da ação (Nome completo)
-- Texto com um resumo dos fatos: especifique os fatos em dois parágrafos
-- Classificação da Decisão Judicial (acordo amigável ou sentença)
-- Verificação da Existência de Acórdão
-- Decisão Judicial: o que foi ordenado à empresa fazer
-- Uma lista completa com os pedidos resumidos em bullet points
+- Número do Processo Judicial: Identificador que localiza o processo onde a liminar foi solicitada.
+- Nome da Parte Autora: Nome da pessoa ou empresa que está solicitando a liminar.
+- CPF ou CNPJ: Número de identificação fiscal da parte autora.
+- Conta Contrato ou Instalação: Referência ao contrato ou ao local relacionado à liminar.
+- Resumo dos Fatos: Breve descrição dos eventos que justificam o pedido de liminar.
+- Cliente Home Care: Informação relevante para verificar se o cliente faz parte de um regime de atendimento prioritário, como no caso de cuidados domiciliares (Home Care).
+- Causas do Pedido: Análise dos motivos apresentados pelo cliente na petição inicial, que justificam o pedido da liminar.
+- Decisão Liminar: Descrição do que a empresa precisa fazer em resposta à liminar deferida, incluindo prazos e ações necessárias.
 
 {tonalidade}
 
-Devolva no formato JSON {{"numero_processo":"", "autor":"", "cpf_cnpj":"", "conta_contrato":"", "representante":"", "cpf":"", "uc":"", "endereco":"", "advogado":"", "fatos":"", "classificacao_decisao":"", "acordao":"", "decisao":"", "pedidos":""}}"""
+Devolva no formato JSON {{"numero_processo":"", "nome_parte_autora":"", "cpf_cnpj":"", "conta_contrato":"", "resumo_fatos":"", "cliente_home_care":"", "causas_pedido":"", "decisao_liminar":""}}"""
 
 
-PROMPT_MOTIVO = """Classificar o motivo do processo, selecionando todas as categorias aplicáveis da lista abaixo. Devolva no formato JSON com valores booleanos
+PROMPT_MOTIVO = """Classifique as causas do pedido da liminar, selecionando todas as categorias aplicáveis. Devolva no formato JSON com valores booleanos.
 
-**Motivos:**
-- Bloquear Cobrança: O cliente contesta a cobrança e solicita o cancelamento
-- Retirar Negativação: Remover registro negativo existente em birôs de crédito como Serasa e SPC
-- Bloquear Negativação: Impedir a inclusão de registro negativo em birôs de crédito
-- Religação de Energia: Restabelecer o fornecimento de energia interrompido
-- Bloquear Corte: Impedir a interrupção do fornecimento de energia
-- Ligação Nova: Solicitar a instalação de energia em um novo ponto
-- Vistoria: Solicitar uma vistoria técnica na unidade consumidora
-- Outros: Motivos não cobertos pelas categorias acima
+**Causas do Pedido:**
+- Falta de Fornecimento de Energia
+- Problemas de Faturamento
+- Danos Morais
+- Cliente em Home Care
+- Outros
 
 **Saída**: JSON com valores booleanos indicando as categorias aplicáveis
-
 """
+
 
 PROMPT_TOM_CASUAL = "O tom dos resumos deve ser casual, amigável e fácil de entender, como se você estivesse explicando para um amigo que não é da área jurídica. Use linguagem simples, evite jargões e seja conciso"
 

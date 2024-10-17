@@ -14,14 +14,15 @@ import textwrap
 
 # Page configurations
 st.set_page_config(
-    page_title="Equatorial - Assistente Jurídico",
+    page_title="Equatorial - Analisador de Liminares",
     page_icon="👤",
     layout="wide"
 )
 
 header_col1, header_col2 = st.columns([2, 10])
-header_col2.header('Assistente Jurídico')
+header_col2.header('Analisador de Liminares')
 header_col1.image("data/logo.png")
+
 
 def clear_cache():
     keys = list(st.session_state.keys())
@@ -126,27 +127,28 @@ if "dados_processo" in st.session_state:
         if "numero_processo" in st.session_state.dados_processo:
             st.markdown("**Número do Processo Judicial:**")
             st.markdown(st.session_state.dados_processo["numero_processo"])
-        if "autor" in st.session_state.dados_processo:
-            st.markdown("**Autor:**")
-            st.markdown(st.session_state.dados_processo["autor"])
+        if "nome_parte_autora" in st.session_state.dados_processo:
+            st.markdown("**Nome da Parte Autora:**")
+            st.markdown(st.session_state.dados_processo["nome_parte_autora"])
         if "cpf_cnpj" in st.session_state.dados_processo:
-            st.markdown("**CPF/CNPJ:**")
+            st.markdown("**CPF ou CNPJ:**")
             st.markdown(st.session_state.dados_processo["cpf_cnpj"])
         if "conta_contrato" in st.session_state.dados_processo:
             st.markdown("**Conta Contrato ou Instalação:**")
             st.markdown(st.session_state.dados_processo["conta_contrato"])
-        if "endereco" in st.session_state.dados_processo:
-            st.markdown("**Endereço:**")
-            st.markdown(st.session_state.dados_processo["endereco"])
-        if "classificacao_decisao" in st.session_state.dados_processo:
-            st.markdown("**Classificação da Decisão Judicial:**")
-            st.markdown(st.session_state.dados_processo["classificacao_decisao"])
-        if "acordao" in st.session_state.dados_processo:
-            st.markdown("**Verificação da Existência de Acórdão:**")
-            st.markdown(st.session_state.dados_processo["acordao"])
-        if "decisao" in st.session_state.dados_processo:
-            st.markdown("**Decisão Judicial:**")
-            st.markdown(st.session_state.dados_processo["decisao"])
+        if "resumo_fatos" in st.session_state.dados_processo:
+            st.markdown("**Resumo dos Fatos:**")
+            st.write(st.session_state.dados_processo["resumo_fatos"])
+        if "cliente_home_care" in st.session_state.dados_processo:
+            st.markdown("**Cliente Home Care:**")
+            st.markdown(st.session_state.dados_processo["cliente_home_care"])
+        if "causas_pedido" in st.session_state.dados_processo:
+            st.markdown("**Causas do Pedido:**")
+            st.write(st.session_state.dados_processo["causas_pedido"])
+        if "decisao_liminar" in st.session_state.dados_processo:
+            st.markdown("**Decisão Liminar:**")
+            st.write(st.session_state.dados_processo["decisao_liminar"])
+
 
         st.markdown("#### Motivos principais:")
         for key, value in st.session_state.motivo.items():
