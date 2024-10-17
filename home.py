@@ -22,7 +22,7 @@ st.set_page_config(
 # Atualize o cabeçalho da aplicação
 
 header_col1, header_col2 = st.columns([2, 10])
-header_col2.header('Reclassificação de Process os Ativos')
+header_col2.header('Reclassificação de Processos Ativos')
 header_col1.image("data/logo.png")
 
 
