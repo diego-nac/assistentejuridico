@@ -1,4 +1,3 @@
-
 # Equatorial - Assistente Jurídico
 
 **Equatorial - Assistente Jurídico** é uma aplicação Python, construída com Streamlit e Vertex AI, projetada para ajudar no processamento e análise de documentos jurídicos, automatizando extração de dados e fornecendo classificações automáticas para casos jurídicos. A aplicação faz upload de arquivos, processa informações e interage com modelos generativos da Google Cloud Vertex AI.
@@ -70,7 +69,7 @@ gcloud auth application-default login
 * `GCP_PROJECT`: ID do seu projeto no Google Cloud.
 * `GCP_REGION`: Região onde os serviços serão executados.
 
-   No Linux/macOS:
+  No Linux/macOS:
 
 ```
 export GCP_PROJECT=<seu_project_id>

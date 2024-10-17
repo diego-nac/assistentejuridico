@@ -12,18 +12,19 @@ from src.gemini import gemini, str2json
 from config.config import *  
 import textwrap
 
-# Atualize a configuração da página
+# home.py
+
+# Configurações da página
 st.set_page_config(
-    page_title="Equatorial - Reclassificação de Processos Ativos",
+    page_title="Equatorial - Reclassificação de Processos Encerrados",
     page_icon="👤",
     layout="wide"
 )
 
-# Atualize o cabeçalho da aplicação
-
 header_col1, header_col2 = st.columns([2, 10])
-header_col2.header('Reclassificação de Process os Ativos')
+header_col2.header('Reclassificação de Processos Encerrados')
 header_col1.image("data/logo.png")
+
 
 
 def clear_cache():
@@ -42,11 +43,12 @@ page_height = streamlit_js_eval(js_expressions='screen.height', key='height',  w
 vertexai.init(project=project_id, location=location_id)
 
 if "page" not in st.session_state:
-    st.session_state.page = "reclassificacao"
-elif st.session_state.page != "reclassificacao":
+    st.session_state.page = "reclassificacao-de-processos-encerrados"
+elif st.session_state.page != "reclassificacao-de-processos-encerrados":
     st.session_state.bt_run = False
     clear_cache()
     st.rerun()
+
 
 if "uploaded_file"not in st.session_state:
     st.session_state.uploaded_file = False
@@ -121,33 +123,48 @@ if uploaded_file is not None:
                     st.error(e)
                     st.write(response)
             i = i + 1
+     
 if "dados_processo" in st.session_state:
 
-    col1, col2 = st.columns([3, 2])
+    col1, col2 = st.columns([3,2])
 
     with col1:
-        if "numero_processo_judicial" in st.session_state.dados_processo:
-            st.markdown("**Número do Processo Judicial:**")
-            st.markdown(st.session_state.dados_processo["numero_processo_judicial"])
-        if "nome_parte_autora" in st.session_state.dados_processo:
-            st.markdown("**Nome da Parte Autora:**")
-            st.markdown(st.session_state.dados_processo["nome_parte_autora"])
+        if "numero_processo" in st.session_state.dados_processo:
+            st.markdown("**Número do processo judicial:**")
+            st.markdown(st.session_state.dados_processo["numero_processo"])
+        if "preposto_empresa" in st.session_state.dados_processo:
+            st.markdown("**Nome do preposto da empresa que acompanhou a audiência:**")
+            st.markdown(st.session_state.dados_processo["preposto_empresa"])
+        if "advogado_empresa" in st.session_state.dados_processo:
+            st.markdown("**Nome do advogado da empresa que acompanhou a audiência:**")
+            st.markdown(st.session_state.dados_processo["advogado_empresa"])
+        if "juiz" in st.session_state.dados_processo:
+            st.markdown("**Nome do Juiz:**")
+            st.markdown(st.session_state.dados_processo["juiz"])
         if "cpf_cnpj" in st.session_state.dados_processo:
             st.markdown("**CPF ou CNPJ:**")
             st.markdown(st.session_state.dados_processo["cpf_cnpj"])
         if "conta_contrato_instalacao" in st.session_state.dados_processo:
-            st.markdown("**Conta Contrato ou Instalação:**")
+            st.markdown("**Conta contrato ou instalação:**")
             st.markdown(st.session_state.dados_processo["conta_contrato_instalacao"])
         if "resumo_fatos" in st.session_state.dados_processo:
-            st.markdown("**Resumo dos Fatos:**")
-            texto_formatado = st.session_state.dados_processo["resumo_fatos"].replace("$", r"\$")
-            st.write(texto_formatado)
+            st.markdown("**Resumo dos fatos:**")
+            st.write(st.session_state.dados_processo["resumo_fatos"])
         if "data_fato_gerador" in st.session_state.dados_processo:
-            st.markdown("**Data do Fato Gerador:**")
+            st.markdown("**Data do fato gerador do processo:**")
             st.markdown(st.session_state.dados_processo["data_fato_gerador"])
-        if "assunto_principal_reclamacao" in st.session_state.dados_processo:
-            st.markdown("**Assunto Principal da Reclamação:**")
-            st.markdown(st.session_state.dados_processo["assunto_principal_reclamacao"])
+        if "valor_cnr" in st.session_state.dados_processo:
+            st.markdown("**Valor da CNR questionada:**")
+            st.markdown(st.session_state.dados_processo["valor_cnr"])
+        if "sentenca_processo" in st.session_state.dados_processo:
+            st.markdown("**Sentença do processo:**")
+            st.markdown(st.session_state.dados_processo["sentenca_processo"])
+        if "pagamento_danos" in st.session_state.dados_processo:
+            st.markdown("**Pagamento de danos morais/materiais/indébito:**")
+            st.markdown(st.session_state.dados_processo["pagamento_danos"])
+        if "decisao_favoravel_empresa" in st.session_state.dados_processo:
+            st.markdown("**Decisão favorável para a empresa:**")
+            st.markdown(st.session_state.dados_processo["decisao_favoravel_empresa"])
 
         st.write("")
         st.write("Obs: É possível alterar a forma que os resultados são gerados.")
